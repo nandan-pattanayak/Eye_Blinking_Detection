@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }    canvas {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <video id="videofd"  width="640" height="580"  autoplay muted></video>
+  <canvas id="canvasfd" style="visibility: hidden" width="640" height="580"  autoplay muted></canvas>
+  <!-- <video id="video" width="320" height="240" autoplay muted></video> -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clmtrackr/1.0.2/clmtrackr.min.js"></script>
+</html>
+<script type="text/javascript">
+var video = document.getElementById('videofd')
+var canvasfd = document.getElementById('canvasfd')
+startVideo();
+function startVideo() {
+  navigator.mediaDevices.getUserMedia(
+    { video: {} },  ).then(function(stream){
+    video.srcObject = stream;  },
+  function(err)
+  {
+  console.error(err);
+  })
+}
+var count = 0;
+var face;
+var cntb = 0;
+var cts = null;
+//var detectionWithLandmarks;
+video.addEventListener('play', () => {
+  //const canvas = faceapi.createCanvasFromMedia(video)  //canvasfd.drawImage(video, 0, 0, video.width, video.height);
+  //document.body.append(canvas)
+  const displaySize = { width: video.width, height: video.height }
+  //faceapi.matchDimensions(canvas, displaySize)
+  setInterval(function () {
+   //     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+  //const face = new faceapi.TinyFaceDetectorOptions();
+   //const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+  //const detectionWithLandmarks = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
+  //const detectionWithLandmarks  =  await faceapi.detectAllFaces(video,face).withFaceLandmarks().withFaceDescriptors()
+  cts = canvasfd.getContext('2d');
+  // const detectionWithLandmarks = await faceDetectionTask.withFaceLandmarks()
+  cts.drawImage(video, 0, 0, video.width, video.height);
+  var lowQuality = canvasfd.toDataURL('image/jpeg', 0.5);
+  console.log(lowQuality);//const leftEye = detectionWithLandmarks.FaceLandmarks68.prototype.getLeftEye()
+//const rightEye = detectionWithLandmarks.FaceLandmarks68.prototype.getRightEye()
+    // if(detectionWithLandmarks.length>0)
+    // {
+    //   // if(detections[0]._score>0.75)
+    //   // {
+    //     const eyecor = detectionWithLandmarks[0].landmarks.getLeftEye()
+    //     //function eye_blinking_detectiona(){
+    //     //const  eyewidth=Math.floor(eyecor[3].magnitude()- eyecor[0].magnitude());
+    //      const  eyewidth = Math.sqrt( Math.pow(eyecor[3]._x - eyecor[0]._x , 2) + Math.pow( eyecor[3]._y - eyecor[0]._y, 2) );
+    //     //const  eyewidth=(eyecor[3]._x - eyecor[0]._x);
+    //     const  h1=(eyecor[1].magnitude() + eyecor[2].magnitude())/2;
+    //     const h2=(eyecor[4].magnitude() + eyecor[5].magnitude())/2;
+    //     const  eh1=(eyecor[4]._y - eyecor[1]._y);
+    //     const height = Math.sqrt( Math.pow(eyecor[2]._x - eyecor[1]._x, 2) + Math.pow(eyecor[2]._y - eyecor[1]._y, 2));    //      eyeheight=h2-h1
+    //      //console.log('eye'+ eyeheight)
+    //      const ratio=eyewidth/eh1
+    //      console.log(eh1)
+    //      if (ratio >4.5){
+    //        console.log(cntb)
+    //        cntb = cntb + 1;
+    //      }
+    //    // ratio = 0;
+    //     //}
+    //     //console.log(count);
+    //     //count = count+1;
+    // //   const resizedDetections = faceapi.resizeResults(detectionWithLandmarks, displaySize)
+    // //  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    // // faceapi.draw.drawDetections(canvas, resizedDetections)
+    // // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+    // // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+    //  // }
+    //   //console.log(detections);    // }
+     //canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height) 
+      },100);
+})
+//  var countfd = 0;
+// var loopfd = async () => {
+//         const detections = await faceapi.detectAllFaces(fdvideo, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()//   //  const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+//     if(detections.length>0)
+//     {
+//       //console.log(detections);
+//       //console.log(countfd);
+//       countfd = countfd+1;
+//       countfacedetection  = countfd;
+//     }//   }
+// function startfd()
+// { 
+//   setInterval(loopfd,1000);
+// }
+</script>
+
